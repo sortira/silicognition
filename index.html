@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Silicognition</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Nerd Font: User must have a Nerd Font installed locally. Example: FiraCode Nerd Font -->
+    <style>
+      body, .page, .paper-header, .authors, .affiliation, .date {
+        font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', monospace, sans-serif;
+      }
+    </style>
     <script>
       window.MathJax = {
         tex: {
@@ -34,88 +34,91 @@
   <body>
     <div class="page">
       <header class="paper-header">
-        <h1>Silicognition: Machine Learning &amp; Deep Learning Insights</h1>
-        <p class="authors">Aritro Shome</p>
-        <p class="affiliation">Deep Learning / Machine Learning / AI Research</p>
-        <p class="date">February 2026</p>
+        <img src="avatar.png" alt="Avatar" class="avatar" />
+        <h1>silicognition: beep boop thinking's analysis</h1>
+        <p class="authors">an initiative by <a href="https://x.com/silicognition">me</a></p>
+        <p class="affiliation">all opinions are my own, not representing any institution :)</p>
+        <p class="date">till the end of time.</p>
         <hr />
+        <nav class="table-of-contents" style="margin-bottom: 2em;">
+          <strong>Table of Contents</strong>
+          <ul>
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#motivation">Motivation</a></li>
+            <li><a href="#layout">A Weird Thing About Layout</a></li>
+            <li><a href="#name">The Name Silicognition</a></li>
+            <li><a href="#what-to-do">What To Do?</a></li>
+            <li><a href="#contact">How to Contact Me?</a></li>
+          </ul>
+        </nav>
       </header>
 
-      <section class="abstract">
-        <h2>Abstract</h2>
+      <section class="abstract" id="abstract">
+        <h2><i>abstract.</i></h2>
         <p>
-          Silicognition is a research-grade technical blog that mirrors the arXiv
-          preprint style. It is designed for readers who want clarity on the math,
-          mechanics, and logic behind modern AI, not just the headlines.
+          silicognition is a blog/rambling/yap about how i perceive computers to perform the marvelous tasks which since time immemorial have been the domain of human cognition. i focus and will be focusing on topics like explainable ai, mechanistic interpretability, novel architectures, and other topics of cs ocassionally. i am not new to the field, i have worked at a top startup in my country as well as writing papers for A* conferences with my professor. i will explore niche fields, do cool challenges and etc. so stay tuned.
         </p>
       </section>
 
       <main class="paper-body">
-        <section>
-          <h2>1. The Vision</h2>
+        <section id="motivation">
+          <h2>motivation.</h2>
           <p>
-            Welcome to Silicognition. This space is dedicated to exploring the
-            rapidly evolving landscapes of Machine Learning (ML) and Deep
-            Learning (DL). The goal is to move beyond the surface-level hype and
-            dive into the mechanics, math, and logic that drive modern AI.
+            well more than anything, penning (keyboarding?) down my thoughts will definitely solidify my comprehension of whatever i'm studying. also the dopamine from interaction gives me motivation (this point is a lie). a nice documention of what i did, proof of work, and with cute diagrams (sketches which i draw in a notebook) will be a nice thing to show to others. this documents stuff better than a readme file and im too lazy to build documentation sites every time.
           </p>
           <p>
-            By mirroring the arXiv preprint style, I aim to provide a reading
-            experience that matches the depth and rigor of the fields themselves.
+            oh btw, since i 💖 research and academic literature, the site is designed like a paper and since i love nerd fonts, here you go. 
           </p>
         </section>
 
-        <section>
-          <h2>2. What to Expect</h2>
+        <section id="layout">
+          <h2>a weird thing about how stuff is laid out</h2>
           <p>
-            On this blog, I, Aritro Shome, will be breaking down complex topics
-            into digestible, research-grade entries. Whether it is the intuition
-            behind a new transformer architecture or the nuances of gradient
-            descent optimization, the content here is designed for those who
-            want to understand the "why" as much as the "how."
+            technical blogs (which i've read) fall into two major categories: one which reads like a splendid conference presentation by someone with insane experience and a PhD, flawless; and the other which reads like <i>hello friends, today i will show you how to get free api key in just 5 minutes please like and share my blog</i>. i neither want to farm reach (but quality feedback and technical discourse is desired as it contributes to proper literature + helps me get better) nor am i world's top x on the subject i'm writing. 
+
+            hence the entire content will be more of how my brain works while approaching the topic, solving the problem, my insights, and how i do research/think of new stuff around these topics.
           </p>
-          <p>Key areas of focus include:</p>
+          <p>areas of focus:</p>
           <ul>
-            <li>Deep Neural Networks: Architectures, training dynamics, and scaling laws.</li>
-            <li>Predictive Modeling: Advanced ML techniques and statistical foundations.</li>
-            <li>Field Developments: Critical analysis of new papers and industry breakthroughs.</li>
+            <li>novel architectures and models, especially transformer/attention based</li>
+            <li>explainable ai: saliency maps and mechanistic interpretability (thanks to <a href="https://www.neelnanda.io/">Neel Nanda</a> for propping up on my feed and giving me this banger)</li>
+            <li>hackathons/internships/my papers discussed</li>
+            <li>other computer science stuff</li>
+            <li>attempts to teach some topics as well</li>
           </ul>
         </section>
 
-        <section>
-          <h2>3. The Philosophy</h2>
+        <section id="name">
+          <h2>the name silicognition, what the hell?</h2>
           <p>
-            The name Silicognition represents the intersection of silicon-based
-            computation and cognitive-inspired algorithms. However, the heart of
-            this blog is clear communication.
+            <i>silico</i> comes from the word silicon, a primary component of computer chips. and <i>cognition</i> is the very capability of us humans to do things which have been exclusively on our skills-list for time immemorial until now, where silicon chips powered computers are slowly replacing the mundane tasks allowing us to be more productive towards other problems. while there is a plethora of ethical debate around this topic, i'm just a person who loves maths and computers and finds it crazy that mere equations of mine if executed fast enough and a large number of times (oversimplified on purpose here) can do stuff which only i dreamt of my computer doing.
+          </p>
+
+          <p>
+           note: if you google, silicognition leads you to a page called <a href="https://silicognition.com/">Silicognition LLC</a> which sells electronics stuff. it is not my intention to impersonate them in any way nor am i doing any financial transactions/stuff with this name.
+          </p>
+          
+        </section>
+
+        <section id="what-to-do">
+          <h2>what to do?</h2>
+          <p>
+            read. reach out to me for doubts, feedback, suggestions, anything you wish to communicate (try not sending hate, although i'll try not be hated). you may find inspiration for a project, a cool topic discovered, a thing you already knew but you shall see it in a different light, etc.
           </p>
           <p>
-            Technical writing does not have to be dry, and "academic" should not
-            mean "unreadable." I am here to bridge that gap, providing
-            engineering-focused insights with the clarity of a formal paper.
+            enjoy silicognition.
           </p>
         </section>
 
-        <section>
-          <h2>4. Why This Format?</h2>
+        <section id="contact">
+          <h2>how to contact me?</h2>
           <p>
-            We are bombarded with bite-sized content that often misses the
-            nuance. By using a dense, two-column layout, Silicognition encourages
-            deep-work reading.
-          </p>
-          <p>
-            It is a format that demands attention and rewards it with a higher
-            density of information per page, perfect for the technical depth
-            required by Machine Learning.
-          </p>
-        </section>
-
-        <section>
-          <h2>5. Looking Ahead</h2>
-          <p>
-            Expect regular updates as I parse through new research, build out
-            personal projects, and document my findings in the DL/ML space. This
-            is a living logbook of a journey through the state-of-the-art.
+            <ol>
+              <li>Email: <a href="mailto:aritro.shome.official@gmail.com">here</a></li>
+              <li>Twitter: <a href="https://x.com/silicognition/">silicognition's twitter</a></li>
+              <li>LinkedIn: <a href="https://www.linkedin.com/in/aritro-shome-40a5b0312/">here</a></li>
+              <li>Instagram: <a href="https://instagram.com/thearitroshome">here</a></li>
+            </ol>
           </p>
         </section>
       </main>
