@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>how a sophomore (me) answered questions on transformers, MoE, residual connections, etc.</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="avatar.png" />
+    <!-- Nerd Font: User must have a Nerd Font installed locally. Example: FiraCode Nerd Font -->
+    <style>
+      body, .page, .paper-header, .authors, .affiliation, .date {
+        font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', monospace, sans-serif;
+      }
+      .post-gif {
+        display: block;
+        margin: 12px auto;
+        border: none;
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+      }
+    </style>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"]
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"]
+          ]
+        }
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="paper-header">
+        <img src="avatar.png" alt="Avatar" class="avatar" />
+        <h1>silicognition: beep boop thinking's analysis</h1>
+        <p class="authors">an initiative by <a href="https://x.com/silicognition">me</a></p>
+        <p class="affiliation">all opinions are my own, not representing any institution :)</p>
+        <p class="date">till the end of time.</p>
+        <p class="date"><a href="index.html">← back to home</a></p>
+        <hr />
+        <nav class="table-of-contents" style="margin-bottom: 2em;">
+          <strong>Table of Contents</strong>
+          <ul>
+            <li><a href="#introduction">introduction</a></li>
+            <li><a href="#prep-stage">prep stage (1 week until interview)</a></li>
+            <li><a href="#day-of">day of the interview</a></li>
+            <li><a href="#interview">interview</a></li>
+            <li><a href="#post-interview">post-interview + my thoughts</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="abstract">
+        <h2><i>how a second year guy (me) answered in interview with questions on transformers, MoE, residual connections, etc.</i></h2>
+        <img class="post-gif" src="https://media1.tenor.com/m/QC0MUZuwRhgAAAAd/daddy-big-job-interview.gif" alt="daddy's got a big job interview" />
+      </section>
+
+      <main class="paper-body">
+        <section id="introduction">
+          <h2>introduction:</h2>
+          <p>
+            so i had the opportunity to attend an interview at one of the distinguished ai labs in my country. on monday, i had the vibe check meeting where basically i spoke for ~5mins about how i previously worked at Sarvam, and more or less it went swiftly. the main interview was today (as of writing this post) on saturday. here's how it went, my mental state, how i prepped for it, how i dealt with pressure and yes questions.
+          </p>
+        </section>
+
+        <section id="prep-stage">
+          <h2>prep stage (1 week until interview):</h2>
+          <img class="post-gif" src="https://media1.tenor.com/m/CTHWI0OWQaoAAAAd/school-college.gif" alt="teddy bear studying" />
+          <p>
+            i was told that there's gonna be dsa, and there's gonna be questions on the Vaswani et al paper (<a href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>). surprisingly, i was confident about the latter (plot twist coming later). ive never found enough motivation to grind leetcode, but it being a necessary evil, i did my due diligence for a week, expecting the leetcode round to totally crush me and my mental. rest of the week i spent pretty chill, playing valorant and watching esports and the world cup.
+          </p>
+          <p>
+            a crucial and weird part of my prep which i always do ever since middle school, is that i try to study the person with as much diligence as the subject matter. i knew the person who was supposed to interview me, so i went through their tweets, posts, past papers and garnered a few pieces of information which did help me prepare better, because the ground reality is for interviews like this, you really can't make much of a dent in a single week. there are layers and layers of concepts with prerequisitees scattered across subjects. i would be doing injustice if i didnt clearly explain the thing: i have been studying/implementing papers, reading ml books like PRML, Goodfellow, etc. for the past ~18 months so factoring that in, there's not much i could do in a week to exponentially change what i knew.
+          </p>
+        </section>
+
+        <section id="day-of">
+          <h2>day of the interview:</h2>
+          <img class="post-gif" src="https://media.tenor.com/ODyP3_5SfpEAAAAj/jagyasini-jagyasini-singh.gif" alt="multitasking stressed" />
+          <p>
+            the interview was supposed to be at 1.30pm, so i woke up as usual, revised with gemini, making it act as a mock interviewer. crucially enough i didn't touch dsa at all today because it being my weak stuff, if i cant answer something today morning, my morale goes down for the afternoon interview which might affect what i already know. i planned on revising till 12.30pm but around 9 i was like drop this, let's relax.
+          </p>
+          <p>
+            i watched some esports, had my lunch and stuff, started watching comedy shows and stuff. around 1.10pm, i set up everything for the interview and pump some white noise into my ears to be ready.
+          </p>
+        </section>
+
+        <section id="interview">
+          <h2>interview: </h2>
+          <img class="post-gif" src="https://media1.tenor.com/m/qDvLEFO5bAkAAAAd/oppenheimer-nuclear-explosion-bright-lights-awe.gif" alt="oppenheimer awe" />
+          <p>
+            i join the meeting and the first section is ofcourse, about dsa. and the question is...2Sum. the first question on leetcode. should have been a breeze but made a stupid mistake on the spur of the moment where i forgot to check if we're picking duplicate elements or not (i forgot the original PS) and then i missed one check on the map. apparently there was a better approach with set but yikes. already off to a shaky start. my mind started planning what-ifs about if i fail the interview so i immediately shut those ideas down, to focus on the next section.
+          </p>
+          <p>
+            the next section was on the Vaswani paper, i screenshared it and the interviewer asked me to go to the diagram of the architecture and thus began the questions. the first question was essentially that ReLu is nondifferentiable, but we usually take derivatives during backprop, so how? i answered that if we consider the entire MLP to be a function, then according to the Universal Approximation Theorem (UAT), any function which is continuous and differentiable everywhere can be represented using an MLP. so using the converse of this, our MLP is a continuous+differentiable everywhere function hence we can differentiate it. the interviewer (i think) accepted the answer, and added that a better answer was the fact that we can take approximations in derivatives which do not impact the perf in the long run. also had a question on batching, used the example of causal masking + matrix batching in transformers to explain the concept. had a side question on padding too.
+          </p>
+          <p>
+            the next question was that instead of the FFN in the transformer arch, what can you implement which might be an improvement? this was sort of an open-ended question, initially i was tempted to answer that modern models have eschewed the encoder totally in favour of decoder, but i didnt want to answer every question from something ive read somewhere before. so i said instead of an FFN which by itself has no knowledge of sequences, so we could replace the FFN with some sequential model like RNNs and it might be better. they mentioned that due to the addition of the positional embeddings, the FFN _does_ have some sense of sequences, but it seemed as if my answer sated them.
+          </p>
+          <p>
+            the next question was that for a layer, why do we add the input to the output? (why x + f(x) instead of just f(x)) thankfully i had read this concept well enough, its called the residual connection to ensure that the input signal is strong enough to propagate to the end despite all the transformations done to it. they asked about why does the input signal decay by the end, and i correctly answered that it was gradient descent. this was a massive confidence booster, as i got both the terminology and the intuition correcttt.
+          </p>
+          <p>
+            the next one was on optimizers, why stochastic gradient descent is bad, i answered it correctly while also offering why Adam is better. i was TEMPTED to talk about how Adam induces privileged basis in the long run (learnt during MechInt rabbit hole exploration) but i refrained, since i wasn't too confident if privileged bias and related mechint was discussed in depth.
+          </p>
+          <p>
+            after the attention paper section, which went overall satisfactorily, i was asked to screen share my resume and got asked questions from my experience and projects. my focus was more on how i came up with ideas and solved challenges about scarce compute, the latter being a very pivotal problem in the current scene here. my procedural art generation project attracted a few questions. 
+          </p>
+          <p>
+            the unexpected part was where i asked the interviewer if i could present something i had worked on before, but had to drop due to lack of good data/compute. my idea was given a music file, my model would generate the dance according to the training style for the input song. all the data for dance was mostly Motion Capture data, where datasets were massive and also the apparatus was costly. i leveraged the massive availability of video data for dance, and used pose estimation on stick figure like approximation of the videos which could run on my single 4060 gpu. i think the cool trick of bypassing mocap using videos and the bypassing of diffusion using pose estimation really appealed to the interviewer.
+          </p>
+        </section>
+
+        <section id="post-interview">
+          <h2>post-interview + my thoughts:</h2>
+          <img class="post-gif" src="https://media1.tenor.com/m/bnWnP0WBTmAAAAAd/sad.gif" alt="sad" />
+          <p>
+            at the end we discussed about what the role was like, etc. other details. nothing much to write here about.
+          </p>
+          <p>
+            my thoughts, i think i did better than my last one, esp since most of the attention paper stuff i had read and intuitively spent hours on understanding. i think i could be a bit more formal at certain places and perhaps articulate my answers better using more proper terms instead of intuitive rambling (i was lucky that the interviewer got my point, but in the future there's always the chance i mess it up.)
+          </p>
+          <p>
+            will update on the role soon. stay patient.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
