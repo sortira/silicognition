@@ -4,12 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Silicognition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" type="image/png" href="avatar.png" />
     <!-- Nerd Font: User must have a Nerd Font installed locally. Example: FiraCode Nerd Font -->
     <style>
       body, .page, .paper-header, .authors, .affiliation, .date {
-        font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', monospace, sans-serif;
+        font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', 'JetBrains Mono', monospace, sans-serif;
       }
     </style>
     <script>
@@ -31,9 +34,18 @@
       async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
   </head>
+  <script data-goatcounter="https://silicognition.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
   <body>
     <div class="page">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
       <header class="paper-header">
         <img src="avatar.png" alt="Avatar" class="avatar" />
         <h1>silicognition: beep boop thinking's analysis</h1>
@@ -133,5 +145,18 @@
         </section>
       </main>
     </div>
+    <script>
+      (function() {
+        var btn = document.getElementById('theme-toggle');
+        var cur = document.documentElement.getAttribute('data-theme') || 'light';
+        btn.textContent = cur === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        btn.addEventListener('click', function() {
+          var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -4,19 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>how a sophomore (me) answered questions on transformers, MoE, residual connections, etc.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" type="image/png" href="avatar.png" />
     <!-- Nerd Font: User must have a Nerd Font installed locally. Example: FiraCode Nerd Font -->
     <style>
       body, .page, .paper-header, .authors, .affiliation, .date {
-        font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', monospace, sans-serif;
+        font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', 'JetBrains Mono', monospace, sans-serif;
       }
       .post-gif {
         display: block;
         margin: 12px auto;
         border: none;
         width: 100%;
-        max-width: 480px;
+        max-width: 320px;
         height: auto;
       }
     </style>
@@ -39,15 +42,24 @@
       async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
   </head>
+  <script data-goatcounter="https://silicognition.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
   <body>
     <div class="page">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
       <header class="paper-header">
         <img src="avatar.png" alt="Avatar" class="avatar" />
-        <h1>silicognition: beep boop thinking's analysis</h1>
+        <h1>how sophomore me answered questions on transformers, MoE &amp; residual connections</h1>
         <p class="authors">an initiative by <a href="https://x.com/silicognition">me</a></p>
         <p class="affiliation">all opinions are my own, not representing any institution :)</p>
-        <p class="date">till the end of time.</p>
+        <p class="date">March 8, 2026</p>
         <p class="date"><a href="index.html">← back to home</a></p>
         <hr />
         <nav class="table-of-contents" style="margin-bottom: 2em;">
@@ -63,7 +75,6 @@
       </header>
 
       <section class="abstract">
-        <h2><i>how a second year guy (me) answered in interview with questions on transformers, MoE, residual connections, etc.</i></h2>
         <img class="post-gif" src="https://media1.tenor.com/m/QC0MUZuwRhgAAAAd/daddy-big-job-interview.gif" alt="daddy's got a big job interview" />
       </section>
 
@@ -104,13 +115,13 @@
             i join the meeting and the first section is ofcourse, about dsa. and the question is...2Sum. the first question on leetcode. should have been a breeze but made a stupid mistake on the spur of the moment where i forgot to check if we're picking duplicate elements or not (i forgot the original PS) and then i missed one check on the map. apparently there was a better approach with set but yikes. already off to a shaky start. my mind started planning what-ifs about if i fail the interview so i immediately shut those ideas down, to focus on the next section.
           </p>
           <p>
-            the next section was on the Vaswani paper, i screenshared it and the interviewer asked me to go to the diagram of the architecture and thus began the questions. the first question was essentially that ReLu is nondifferentiable, but we usually take derivatives during backprop, so how? i answered that if we consider the entire MLP to be a function, then according to the Universal Approximation Theorem (UAT), any function which is continuous and differentiable everywhere can be represented using an MLP. so using the converse of this, our MLP is a continuous+differentiable everywhere function hence we can differentiate it. the interviewer (i think) accepted the answer, and added that a better answer was the fact that we can take approximations in derivatives which do not impact the perf in the long run. also had a question on batching, used the example of causal masking + matrix batching in transformers to explain the concept. had a side question on padding too.
+            the next section was on the Vaswani paper, i screenshared it and the interviewer asked me to go to the diagram of the architecture and thus began the questions. the first question was essentially that $\text{ReLU}$ is nondifferentiable, but we usually take derivatives during backprop, so how? i answered that if we consider the entire MLP to be a function, then according to the Universal Approximation Theorem (UAT), any function which is continuous and differentiable everywhere can be represented using an MLP. so using the converse of this, our MLP is a continuous+differentiable everywhere function hence we can differentiate it. the interviewer (i think) accepted the answer, and added that a better answer was the fact that we can take approximations in derivatives which do not impact the perf in the long run. also had a question on batching, used the example of causal masking + matrix batching in transformers to explain the concept. had a side question on padding too.
           </p>
           <p>
             the next question was that instead of the FFN in the transformer arch, what can you implement which might be an improvement? this was sort of an open-ended question, initially i was tempted to answer that modern models have eschewed the encoder totally in favour of decoder, but i didnt want to answer every question from something ive read somewhere before. so i said instead of an FFN which by itself has no knowledge of sequences, so we could replace the FFN with some sequential model like RNNs and it might be better. they mentioned that due to the addition of the positional embeddings, the FFN _does_ have some sense of sequences, but it seemed as if my answer sated them.
           </p>
           <p>
-            the next question was that for a layer, why do we add the input to the output? (why x + f(x) instead of just f(x)) thankfully i had read this concept well enough, its called the residual connection to ensure that the input signal is strong enough to propagate to the end despite all the transformations done to it. they asked about why does the input signal decay by the end, and i correctly answered that it was gradient descent. this was a massive confidence booster, as i got both the terminology and the intuition correcttt.
+            the next question was that for a layer, why do we add the input to the output? (why $x + f(x)$ instead of just $f(x)$) thankfully i had read this concept well enough, its called the residual connection to ensure that the input signal is strong enough to propagate to the end despite all the transformations done to it. they asked about why does the input signal decay by the end, and i correctly answered that it was gradient descent. this was a massive confidence booster, as i got both the terminology and the intuition correcttt.
           </p>
           <p>
             the next one was on optimizers, why stochastic gradient descent is bad, i answered it correctly while also offering why Adam is better. i was TEMPTED to talk about how Adam induces privileged basis in the long run (learnt during MechInt rabbit hole exploration) but i refrained, since i wasn't too confident if privileged bias and related mechint was discussed in depth.
@@ -137,6 +148,54 @@
           </p>
         </section>
       </main>
+
+      <section class="paper-body" style="margin-top: 2em; border-top: 1px solid var(--rule); padding-top: 1.5em;">
+        <h2>comments</h2>
+        <div id="giscus-container"></div>
+        <script>
+          (function() {
+            var theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            var s = document.createElement('script');
+            s.src = 'https://giscus.app/client.js';
+            s.setAttribute('data-repo', 'sortira/silicognition');
+            s.setAttribute('data-repo-id', 'R_kgDORMWBIQ');
+            s.setAttribute('data-category', 'General');
+            s.setAttribute('data-category-id', 'DIC_kwDORMWBIc4C37E9');
+            s.setAttribute('data-mapping', 'pathname');
+            s.setAttribute('data-strict', '0');
+            s.setAttribute('data-reactions-enabled', '1');
+            s.setAttribute('data-emit-metadata', '0');
+            s.setAttribute('data-input-position', 'bottom');
+            s.setAttribute('data-theme', theme);
+            s.setAttribute('data-lang', 'en');
+            s.setAttribute('crossorigin', 'anonymous');
+            s.async = true;
+            document.getElementById('giscus-container').appendChild(s);
+          })();
+        </script>
+      </section>
     </div>
+    <script>
+      function updateGiscusTheme(theme) {
+        var frame = document.querySelector('iframe.giscus-frame');
+        if (!frame) return;
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+          'https://giscus.app'
+        );
+      }
+      (function() {
+        var btn = document.getElementById('theme-toggle');
+        var cur = document.documentElement.getAttribute('data-theme') || 'light';
+        btn.textContent = cur === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        btn.addEventListener('click', function() {
+          var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+          updateGiscusTheme(next);
+        });
+      })();
+    </script>
   </body>
 </html>
