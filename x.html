@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>pen is mightier than the gpu - handformer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="avatar.png" />
+    <style>
+      body, .page, .paper-header, .authors, .affiliation, .date {
+        font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', 'JetBrains Mono', monospace, sans-serif;
+      }
+      .post-gif {
+        display: block;
+        margin: 12px auto;
+        border: none;
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+      }
+      code {
+        background: var(--code-bg);
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+      pre {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 15px;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1em 0;
+      }
+    </style>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+  </head>
+  <script data-goatcounter="https://silicognition.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <body>
+    <div class="page">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+      <header class="paper-header">
+        <img src="avatar.png" alt="Avatar" class="avatar" />
+        <h1>pen is mightier than the gpu: hand-coding a transformer for addition</h1>
+        <p class="authors">an initiative by <a href="https://x.com/silicognition">me</a></p>
+        <p class="affiliation">Reverse engineering the forward pass with pen and paper.</p>
+        <p class="date">March 12, 2026</p>
+        <p class="date"><a href="index.html">← back to home</a></p>
+        <hr />
+        <nav class="table-of-contents" style="margin-bottom: 2em;">
+          <strong>Table of Contents</strong>
+          <ul>
+            <li><a href="#goal">0. goal</a></li>
+            <li><a href="#motivation">1. motivation</a></li>
+            <li><a href="#architecture">2. designing the architecture</a></li>
+            <li><a href="#nuances">3. nuances for the pedantic</a></li>
+            <li><a href="#weights">4. figuring out the weights</a></li>
+            <li><a href="#readout">5. getting the sum</a></li>
+            <li><a href="#takeaways">6. takeaways</a></li>
+            <li><a href="#future">7. future tasks</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="abstract">
+        <p><em>Links: <a href="#">github</a> | <a href="#">demo site</a> | <a href="#">video walkthrough</a></em></p>
+      </section>
+
+      <main class="paper-body">
+        <section id="goal">
+          <h2>0. goal:</h2>
+          <p>
+            to get a feel of what mechanistic interpretability is like, intuitively understanding QK and OV circuits.
+          </p>
+          <p>
+            ps: i write OV circuit because usually there is OV circuit while doing mech-int but the tiny example i use, matrix O is not present so technically it's just V. many such hacks exist. if you're a pedantic, check section 3.
+          </p>
+        </section>
+
+        <section id="motivation">
+          <h2>1. motivation:</h2>
+          <p>
+            recently, i worked with a professor on saliency maps for interpretable vision transformers. this concept of making models which not only give the answer to what, but also sheds light on the question of how, appealed to me. because from a human perspective, knowing the how is what separates us from other species. apart from this, in present times, artificial intelligence has increasingly become a widely used but misunderstood, feared black box. i feel this field of work can help to alleviate these concerns to a large extent.
+          </p>
+          <p>
+            my search into the rabbit hole led me to Neel Nanda and his work on mechanistic interpretability (mechint). the sort of neurosurgical analysis of models and particularly mapping the attention heads to a human-understandable algorithm made me very engrossed in this topic. 
+          </p>
+          <p>
+            mechint can be viewed as reverse engineering a trained model to see which attention head performs which subtask. what if i did the reverse? i would define a model where the attention layers would do a subtask which i define for it, and i shall provide the weights using nothing but pen and paper. hence, the pen is mightier than the GPU.
+          </p>
+        </section>
+
+        <section id="architecture">
+          <h2>2. designing the architecture:</h2>
+          <p>
+            broadly, these are the following things i need to decide about the architecture:
+            <ul>
+              <li>how to convert tokens (17+25) to embeddings (value of $d_{model}=3$)</li>
+              <li>how many layers of attention to stack</li>
+              <li>how to convert final output into a proper sum</li>
+            </ul>
+          </p>
+          <p>
+            if you're keen you will notice there is no mention of the FFN or the layer-norm. 2 reasons: firstly, it will increase the number of weights i have to manage by hand. secondly, from a mechint pov, i wish to understand how attention layers can be dedicated to each subtask.
+          </p>
+          <p>
+            for the tokens-to-embedding procedure, i settled on $d_{model} = 3$. i visualize three distinct information that require storage: 
+            1. value of the digit, 
+            2. information about the position, 
+            3. if there is carry or not. 
+            for position, i used $-1.0$ for tokens at even positions and $+1.0$ for tokens at odd positions. the digit is copied as it is, and initially the carry dimension is $0.0$.
+          </p>
+          <p>
+            another nuance is the sequence. i omitted the "+" sign entirely. the sequence is just four digits followed by a special "EOS" token. the EOS token acts like a blank bucket; it is designed to reach back into the past using attention and "accumulate" the sums from the other tokens. by the final layer, the EOS token's vector is the only thing we look at.
+          </p>
+        </section>
+
+        <section id="nuances">
+          <h2>3. nuances for the pedantic:</h2>
+          <p>
+            before we dive into the math, i gotta admit i took some shortcuts. first, the embedding and unembedding are hardcoded hacks. in a real model, these would be learned weights. second, i didn't use a scaling factor like $1/\sqrt{d_k}$ because my $d_{model}$ is so small it doesn't matter. third, i ignored layer norm and MLP blocks entirely to see the raw power of the attention heads. also, my softmax might look a bit aggressive with those large weights, but it's just to make the attention "binary" and clear.
+          </p>
+        </section>
+
+        <section id="weights">
+          <h2>4. figuring out the weights:</h2>
+          <p>
+            this is where the magic happens. we are playing god with these matrices. i needed two layers because addition is a two-step process: handle units, then tens.
+          </p>
+          <h3>layer 1: the units circuit</h3>
+          <p>
+            the man on the hill (qk circuit): imagine the EOS token shouting, "i'm looking for anyone with a position value of $-1$!"
+            i set $W_{q1} = \{ \{0,0,0\}, \{0,0,0\}, \{0,0,10\} \}$ and $W_{k1} = \{ \{0,0,0\}, \{0,0,0\}, \{0,0,-10\} \}$.
+            recalling $\text{attn} = \text{softmax}(QK^T)V$, when megaphone (Q) meets sign (K), they multiply. for units, it's $10 \times -10 \times -1 = +100$ (a match!). for tens, it's $10 \times -10 \times 1 = -100$ (rejection).
+          </p>
+          <p>
+            the librarian (v circuit): i set $W_{v1} = \{ \{0,0,0\}, \{2.0,0,0\}, \{0,0,0\} \}$. the $2.0$ at $[1,0]$ means "take digit from col 1 and move to col 0 (units register)." why $2.0$? because attention averages tokens. $(7+5)/2 = 6$, so we multiply by 2 to get back to $12$.
+          </p>
+          
+          <h3>layer 2: the tens circuit</h3>
+          <p>
+            the man on the hill: "i want everyone with a position of $+1$!"
+            $W_{q2} = \{ \{0,0,0\}, \{0,0,0\}, \{0,0,10\} \}$ and $W_{k2} = \{ \{0,0,0\}, \{0,0,0\}, \{0,0,10\} \}$.
+            now tokens with position $+1$ (the tens) get the score of $+100$.
+          </p>
+          <p>
+            the librarian: $W_{v2} = \{ \{0,0,0\}, \{0,3.0,0\}, \{0,0,0\} \}$.
+            why $3.0$? the EOS token ($+1$ position) attends to itself + two tens tokens. the average is $(1+2+0)/3 = 1.0$. multiplying by $3$ restores the sum of $3$.
+          </p>
+        </section>
+
+        <section id="readout">
+          <h2>5. getting the sum:</h2>
+          <p>
+            the EOS token vector now looks like $\{12.0, 3.0, 1.0\}$.
+            <ul>
+              <li>column 0 (12.0) = units sum</li>
+              <li>column 1 (3.0) = tens sum</li>
+            </ul>
+            we apply primary school carry logic: $12 \ge 10 \rightarrow \text{carry}=1, \text{units}=2$. 
+            final result: $(3 + 1) \times 10 + 2 = 42$.
+          </p>
+        </section>
+
+        <section id="takeaways">
+          <h2>6. takeaways:</h2>
+          <p>
+            transformers aren't just random magic; they are just really fast, high-dimensional spreadsheet workers. the QK circuit is the search engine, and the V circuit is the retrieval mechanism. turns out, the pen really is mightier than the GPU when it comes to understanding.
+          </p>
+        </section>
+
+        <section id="future">
+          <h2>7. future tasks:</h2>
+          <ol>
+            <li>properly implementing hundredth carry</li>
+            <li>adding FFNs and Layer Norms</li>
+            <li>generalizing for n-digit numbers</li>
+            <li>comparing hand-coded weights with PyTorch-trained weights</li>
+          </ol>
+        </section>
+      </main>
+
+      <footer style="margin-top: 2em; border-top: 1px solid var(--rule); padding-top: 1.5em;">
+        <h2>comments</h2>
+        <div id="giscus-container"></div>
+      </footer>
+    </div>
+
+    <script>
+      // Giscus and Theme Toggle scripts remain the same as your template
+      function updateGiscusTheme(theme) {
+        var frame = document.querySelector('iframe.giscus-frame');
+        if (!frame) return;
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+          'https://giscus.app'
+        );
+      }
+      (function() {
+        var btn = document.getElementById('theme-toggle');
+        var cur = document.documentElement.getAttribute('data-theme') || 'light';
+        btn.textContent = cur === 'dark' ? '☀️' : '🌙';
+        btn.addEventListener('click', function() {
+          var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          btn.textContent = next === 'dark' ? '☀️' : '🌙';
+          updateGiscusTheme(next);
+        });
+      })();
+    </script>
+  </body>
+</html>

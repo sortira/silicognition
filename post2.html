@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>pen is mightier than the gpu - forgeformer, a 2 attention-layer transformer which adds 2 two-digit numbers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="avatar.png" />
+    <style>
+      body, .page, .paper-header, .authors, .affiliation, .date {
+        font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', 'JetBrains Mono', monospace, sans-serif;
+      }
+    </style>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"]
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"]
+          ]
+        }
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+  </head>
+  <script data-goatcounter="https://silicognition.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+  <body>
+    <div class="page">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+      <header class="paper-header">
+        <img src="avatar.png" alt="Avatar" class="avatar" />
+        <h1>pen is mightier than the gpu - forgeformer, a 2 attention-layer transformer* which adds 2 two-digit numbers</h1>
+        <p class="authors">an initiative by <a href="https://x.com/silicognition">me</a></p>
+        <p class="affiliation">all opinions are my own, not representing any institution :)</p>
+        <p class="date">March 12, 2026</p>
+        <p class="date"><a href="index.html">← back to home</a></p>
+        <hr />
+        <nav class="table-of-contents" style="margin-bottom: 2em;">
+          <strong>Table of Contents</strong>
+          <ul>
+            <li><a href="#section0">0. goal</a></li>
+            <li><a href="#section1">1. motivation</a></li>
+            <li><a href="#section2">2. designing the architecture</a></li>
+            <li><a href="#section3">3. nuances for the pedantic</a></li>
+            <li><a href="#section4">4. pen is mightier than the gpu - figuring out the weights</a></li>
+            <li><a href="#section5">5. getting the sum out of the forgeformer brain</a></li>
+            <li><a href="#section6">6. takeaways</a></li>
+            <li><a href="#section7">7. future tasks</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="paper-body">
+
+        <section id="section0">
+          <h2>0. goal</h2>
+          <p>
+            to get a feel of what mechanistic interpretability is like, intuitively understanding QK and OV* circuits.
+          </p>
+          <p>
+            <a href="https://github.com/sortira/forgeformer">[github]</a> &nbsp;|&nbsp; <a href="https://aritro.is-a.dev/forgeformer/">[demo site]</a> &nbsp;|&nbsp; <a href="#">[video]</a>
+          </p>
+          <p>
+            <em>ps: * i write OV circuit because usually there is OV circuit while doing mech-int but the tiny example i use, matrix O is not present so technically it's just V. many such hacks exist. if you're a pedantic, check section 3.</em>
+          </p>
+        </section>
+
+        <section id="section1">
+          <h2>1. motivation</h2>
+          <p>
+            recently, i worked with a professor on saliency maps for interpretable vision transformers. this concept of making models which not only give the answer to what, but also sheds light on the question of how, appealed to me. because from a human perspective, knowing the how is what separates us from other species (ig, i'm not an expert on species, but to the best of my knowledge i don't think other animals know how digestion work scientifically, but they DO eat). apart from this, in present times, artificial intelligence has increasingly become a widely used but misunderstood, feared black box. i feel this field of work can help to alleviate these concerns to a large extent.
+          </p>
+          <p>
+            my search into the rabbit hole of explainable models eventually led me to <a href="https://www.neelnanda.io">Neel Nanda</a> and his work on mechanistic interpretability (its a mouthful so will call it mechint from now on). the sort of neurosurgical analysis of models and particularly mapping the attention heads to a human-understandable algorithm/subtask made me very engrossed in this topic.
+          </p>
+          <p>
+            i started with the Anthropic paper called <a href="https://transformer-circuits.pub/2021/mathematical-framework/index.html">Mathematical Analysis of Transformer circuits</a> which talk about QK and OV circuits, and accompanied this with <a href="https://www.youtube.com/@neelnanda2469">Neel's video</a> on the same. the video did an outstanding work of explaining the paper (i need to interrupt here and mention i still haven't gone through the entirety of the paper/video) but i had a mental scratch to itch.
+          </p>
+          <p>
+            mechint can be viewed as reverse engineering a trained model to see which attention head performs which subtask. what if i did the reverse of that? but you may ask, isn't that just training a model? yes. but with a twist. i would define a model where the attention layers would do a subtask which i define for it, and i shall provide the weights using nothing but pen and paper. hence, the pen is mightier than the GPU.
+          </p>
+        </section>
+
+        <section id="section2">
+          <h2>2. designing the architecture</h2>
+          <p>broadly, these are the following things i need to decide about the architecture</p>
+          <ol type="a">
+            <li>how to convert tokens (17+25) to embeddings (including value of $d_{\text{model}}$)</li>
+            <li>how many layers of attention to stack on one top of another</li>
+            <li>how to convert final output into a proper sum</li>
+          </ol>
+          <p>
+            if you're keen you will notice there is no mention of the ffn or the layer-norm, which are usually present in a standard transformer. 2 reasons: firstly, it will increase the number of weights i have to manage by hand. secondly, from a mechint pov, i wish to understand how attention layers can be dedicated to each subtask, so just having them combined to do the task will align more with my end goal.
+          </p>
+          <p>
+            for the tokens-to-embedding procedure, i settled on $d_{\text{model}} = 3$. why? i visualize three distinct information that require storage. first is the value of the digit itself, second is some sort of information about the position, third is about if there is carry or not. for position, i used $-1.0$ for tokens at even positions and $+1.0$ for tokens at odd positions (one-indexing of positions). the digit is copied as it is, and initially the dimension designated for carry is set to $0.0$ for all embeddings.
+          </p>
+          <p>
+            for layers, i chose 2 layers. why? well adding 2 two-digit numbers as taught in elementary school, has 2 distinct subtasks, with a 3rd linking task: first we add the units place and get a digit for the final result's units digit, propagate the carry (if any), then add the tens place to get final digit for the final result's tens place (combined w carry). this approach overlooks the part what if there is a carry in the tens place addition, this we will see later how it happens.
+          </p>
+          <p>
+            finally, there's the question of the readout: how do we get a human-readable number out of these vectors? in a real transformer, you'd have a massive unembedding matrix that maps the final hidden state to a vocabulary of tokens. since i'm doing this by hand and didn't want to write out a huge matrix, i used a bit of a "python hack." instead of a proper linear layer, i just reach into the last token's vector, grab the sums we've accumulated, and use the standard + and * operators in python to reconstruct the number. it's technically cheating the transformer purists, but it helps isolate the actual logic of the attention layers without getting bogged down in the readout. my goal initially was to see how attention layers can come up with solving the subtasks of handling units place and tens place separately, so if i can prove that the layers do those subtasks properly, no harm in using the + operator to get to the final result quickly.
+          </p>
+          <p>
+            another nuance here is the sequence itself. i decided to omit the "+" sign entirely to keep things lean. the model doesn't need a symbol to know it's adding; the architecture itself is the calculator. the sequence is just four digits followed by a special "eos" (end of sentence) token. this eos token is the most important part of the whole setup—it acts like a blank bucket or a sponge. while the digit tokens just sit there holding their values, the eos token is designed to reach back into the past using attention and "accumulate" the sums from the other tokens into its own embedding. by the time we hit the last layer, the eos token's vector is the only thing we actually look at to get our answer.
+          </p>
+        </section>
+
+        <section id="section3">
+          <h2>3. nuances for the pedantic</h2>
+          <p>
+            before we dive into the math, i gotta admit i took some shortcuts. first, the embedding and unembedding (readout) are hardcoded hacks. in a real model, these would be learned weights. second, i didn't use a scaling factor like $\frac{1}{\sqrt{d_k}}$ because my $d_{\text{model}}$ is so small it doesn't really matter. third, i ignored layer norm and mlp blocks entirely. why? because i wanted to see the raw power of the attention heads. also, my softmax might look a bit aggressive with those large weights, but it's just to make the attention "binary" and clear for our human brains to follow. if you're a transformer purist, please don't sue me.
+          </p>
+        </section>
+
+        <section id="section4">
+          <h2>4. pen is mightier than the gpu - figuring out the weights</h2>
+          <p>
+            this is where the magic happens. we are going to play god with these matrices. i needed two layers because addition is a two-step process in my head: handle the units, then handle the tens. let's look at how we force the model to behave using two analogies: the "man on the hill" (qk circuit) and the "librarian" (v circuit).
+          </p>
+
+          <h3>layer 1: the units circuit</h3>
+          <p>for layer 1, our goal is to get the eos token to "look" only at the units digits (7 and 5 in our 17+25 example).</p>
+
+          <h4>the man on the hill (qk circuit):</h4>
+          <p>
+            imagine the eos token is a man standing on a hill with a megaphone (the query, q). he's shouting, "i'm looking for anyone with a position value of -1!" down in the valley, all the other tokens have signs (the keys, k).
+          </p>
+          <p>to make this happen, i set</p>
+          $$W_{Q1} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 10 \end{pmatrix}, \qquad W_{K1} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & -10 \end{pmatrix}$$
+          <p>
+            recall the attention formula where $\text{attn} = \text{softmax}(QK^T)V$ [here the scores are small enough i dont need to worry about explosion hence removing the division by $\sqrt{d_k}$]
+          </p>
+          <p>
+            why these specific spots? because column 2 is where we stored our position data ($-1$ for units, $+1$ for tens/eos). by putting the $10$ and $-10$ in the $[2,2]$ index of these matrices, we isolate that position info.
+          </p>
+          <p>
+            when the megaphone (q) meets the sign (k), they multiply. for the units digits, it's $10 \times (-10) \times (-1) = +100$ (a massive match!). for the tens digits, it's $10 \times (-10) \times 1 = -100$ (a massive rejection). the softmax turns these scores into probabilities, making the eos token's attention almost $1.0$ on the units and $0.0$ on everything else. i used $10$ because it's large enough to make the softmax "hard"—it's not a suggestion; it's a command.
+          </p>
+
+          <h4>the librarian (v circuit):</h4>
+          <p>
+            now that the man on the hill has found his targets, the librarian (the value matrix, v) needs to decide what to do with their info.
+          </p>
+          $$W_{V1} = \begin{pmatrix} 0 & 0 & 0 \\ 2.0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$$
+          <p>
+            the $2.0$ is at $[1,0]$. why? column 1 of our input is where the raw digit lives. column 0 is our empty "units register." the librarian is essentially saying: "take whatever is in the digit slot (col 1) and move it to the units register (col 0)."
+          </p>
+          <p>
+            but why $2.0$ and not $1.0$? remember, attention is an averaging machine. if we attend to two tokens (7 and 5), the model does $(7 + 5) / 2 = 6$. we don't want the average; we want the sum! so we multiply by $2.0$ to counteract that division. boom. the units register in the eos token now holds a $12$.
+          </p>
+
+          <h3>layer 2: the tens circuit</h3>
+          <p>now we move to the tens digits (1 and 2). the residual stream has carried our $12$ forward, and now layer 2 kicks in.</p>
+
+          <h4>the man on the hill (qk circuit):</h4>
+          <p>
+            this time, the man on the hill is shouting for a different crowd: "i want everyone with a position of $+1$!"
+          </p>
+          $$W_{Q2} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 10 \end{pmatrix}, \qquad W_{K2} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 10 \end{pmatrix}$$
+          <p>
+            notice $W_{K2}$ changed from $-10$ to $10$. now, a $+1$ position (the tens) multiplied by $10$ and $10$ gives $+100$. the tens tokens are now the stars of the show.
+          </p>
+
+          <h4>the librarian (v circuit):</h4>
+          <p>the librarian for layer 2 has a different job. we set</p>
+          $$W_{V2} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 3.0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$$
+          <p>
+            this time, the librarian is looking at column 1 (the digits) and keeping them in column 1 (the tens register).
+          </p>
+          <p>
+            but why $3.0$? this is the subtle part. in this layer, the eos token has a position of $+1$, so it actually attends to itself along with the two tens tokens. the attention is split three ways ($\frac{1}{3}$ each). the eos token's digit slot is $0$, while the tens are $1$ and $2$. the average is $(1 + 2 + 0) / 3 = 1.0$. to get back to our sum of $3$, we have to multiply by $3.0$.
+          </p>
+          <p>
+            by the end of this, our librarian has shelf-spaced everything perfectly. column 0 has the units sum, and column 1 has the tens sum. no training, no gpus, just a very bossy man on a hill and an organized librarian.
+          </p>
+        </section>
+
+        <section id="section5">
+          <h2>5. getting the sum out of the forgeformer brain</h2>
+          <p>
+            now the eos token is "pregnant" with information. its embedding vector at the very end looks something like $\{12.0,\ 3.0,\ 1.0\}$.
+          </p>
+          <ul>
+            <li>column 0 ($12.0$) is our units sum.</li>
+            <li>column 1 ($3.0$) is our tens sum.</li>
+            <li>column 2 ($1.0$) is just the leftover position marker.</li>
+          </ul>
+          <p>to get the final number, we just apply standard primary school carry logic.</p>
+          <p>
+            is $12 \geq 10$? yes.<br />
+            so carry $= 1$, and units becomes $2$.<br />
+            then we just do: $(\text{tens\_sum} + \text{carry}) \times 10 + \text{units}$.<br />
+            $(3 + 1) \times 10 + 2 = 42$.<br />
+            it's alive!
+          </p>
+        </section>
+
+        <section id="section6">
+          <h2>6. takeaways</h2>
+          <p>
+            the coolest thing about this isn't that a computer added two numbers; my calculator from 1998 can do that. it's that we can see exactly how the "handshake" between keys and queries creates a specific algorithm. its like seeing how the brain of the model is first looking at units place then at tens place.
+          </p>
+          <p>
+            the qk circuit is the "search engine" which decides who to talk to based on position or value. the v circuit (or ov circuit) is the retreival mechanism which decides what information to actually carry forward. by manually setting these, we proved that transformers aren't just random magic; they are just really fast, high-dimensional spreadsheet workers.
+          </p>
+          <p>
+            next time you see a massive model like gpt-4, just remember that somewhere inside those billions of parameters, there are probably tiny circuits just like this one, looking for a specific "handshake" to solve a subtask. turns out, the pen really is mightier than the gpu when it comes to understanding.
+          </p>
+        </section>
+
+        <section id="section7">
+          <h2>7. future tasks</h2>
+          <ol>
+            <li>Properly implementing the hundredth carry, right now it cheats.</li>
+            <li>Adding FFNs and Layer Norms (if needed to see what they contribute intuitively)</li>
+            <li>Generalizing an approach for $n$-digit $+$ $m$-digit, $n \neq m$ (using computer trained models of course)</li>
+            <li>Carrying our concepts about what the attention heads actually do and checking with open-source models</li>
+            <li>Training one model for the same task as Forgeformer using Pytorch and comparing their weights with mine.</li>
+            <li>Doing all this for other trivial tasks</li>
+          </ol>
+        </section>
+
+      </main>
+
+      <section class="paper-body" style="margin-top: 2em; border-top: 1px solid var(--rule); padding-top: 1.5em;">
+        <h2>comments</h2>
+        <div id="giscus-container"></div>
+        <script>
+          (function() {
+            var theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            var s = document.createElement('script');
+            s.src = 'https://giscus.app/client.js';
+            s.setAttribute('data-repo', 'sortira/silicognition');
+            s.setAttribute('data-repo-id', 'R_kgDORMWBIQ');
+            s.setAttribute('data-category', 'General');
+            s.setAttribute('data-category-id', 'DIC_kwDORMWBIc4C37E9');
+            s.setAttribute('data-mapping', 'pathname');
+            s.setAttribute('data-strict', '0');
+            s.setAttribute('data-reactions-enabled', '1');
+            s.setAttribute('data-emit-metadata', '0');
+            s.setAttribute('data-input-position', 'bottom');
+            s.setAttribute('data-theme', theme);
+            s.setAttribute('data-lang', 'en');
+            s.setAttribute('crossorigin', 'anonymous');
+            s.async = true;
+            document.getElementById('giscus-container').appendChild(s);
+          })();
+        </script>
+      </section>
+    </div>
+    <script>
+      function updateGiscusTheme(theme) {
+        var frame = document.querySelector('iframe.giscus-frame');
+        if (!frame) return;
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+          'https://giscus.app'
+        );
+      }
+      (function() {
+        var btn = document.getElementById('theme-toggle');
+        var cur = document.documentElement.getAttribute('data-theme') || 'light';
+        btn.textContent = cur === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        btn.addEventListener('click', function() {
+          var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+          updateGiscusTheme(next);
+        });
+      })();
+    </script>
+  </body>
+</html>
