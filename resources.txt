@@ -1,0 +1,54 @@
+## mechanistic interpretability
+1. https://docs.google.com/spreadsheets/d/1oOdrQ80jDK-aGn-EVdDt3dg65GhmzrvBWzJ6MUZB8n4/edit?gid=0#gid=0 Neel Nanda's 200 Problems on Mechanistic Interpretability
+2. https://dynalist.io/d/n2ZWtnoYHrU1s4vnFSAQ519J comprehensive guide to mechanistic interpretability by Neel Nanda
+3. https://arxiv.org/pdf/2406.11717 refusal is mediated by a single direction (arditi et al.)
+4. https://youtu.be/78Xa8VkH7-g?si=WWAa0sGi19CSYb1O video 1 mechint lecture
+5. https://youtu.be/Cx3JlXDwMaU?si=fn-D6Ldx3uJTg0i8 video 2 mechint lecture
+6. https://youtu.be/q-yo6TPRPVk?si=7_20H1Y_jFMA0gGL video 3 mechint lecture
+7. https://transformer-circuits.pub/2021/exercises/index.html goated series of exercises for mechint
+8. https://transformer-circuits.pub/ whole thread is goated, read if you're into mechint
+9. 
+
+## ai systems engineering
+1. https://www.kannav.dev/blog/blog_cinco primer on gpu internals
+2. frontier training methodologies https://djdumpling.github.io/2026/01/31/frontier_training.html
+3. https://workatafrontierlab.com/ pretty self explanatory
+4. https://blog.yellowday.day/posts/gpt_oss_from_scratch/ gpt from scratch 
+5. https://arxiv.org/abs/2603.07685 MoE scalable training
+6. 
+
+## interesting papers/courses/idea stuff
+1. https://subliminal-learning.com/ a cool method of teacher-student learning mechanism
+2. https://huggingface.co/learn/deep-rl-course/en/unit0/introduction HF course on deep RL
+3. http://www.incompleteideas.net/ Richard Sutton's incomplete ideas
+4. https://github.com/duoan/TorchCode Leetcode for Pytorch
+5. https://www.neuronpedia.org/ neuronpedia (insane stuff tbh)
+6. https://arxiv.org/pdf/2602.20330v1 VLM circuit tracing
+7. https://arena-chapter1-transformer-interp.streamlit.app/ ARENA
+8. https://www.youtube.com/watch?v=rIwgZWzUKm8 world models 7 hour interview
+9. https://openai.com/index/parameter-golf/ openai's parameter golf challenge
+10. https://diffusion.csail.mit.edu/2026/index.html diffusion course from mit
+11. https://arxiv.org/pdf/2603.14567 my senior's paper on a new approach
+12. http://kuleshov-group.github.io/dgm-website/ deep generative models course
+13. https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ silver's rl course op
+14. https://www.youtube.com/playlist?list=PLoROMvodv4rN4wG6Nk6sNpTEbuOSosZdX stanford's rl course
+15. 
+
+## self-help/tips and stuff for research
+1. how to get so creative it feels illegal https://x.com/i/status/2036824811712942576
+2. https://neelguha.github.io/blog/2026/templates/ Neel's template on ML papers
+3. https://www.youtube.com/watch?v=L4NnV_YpS2o how to get into frontier research, really nice tips
+4. https://www.kaggle.com/datasets/parthplc/facebook-hateful-meme-dataset if not anything, the memes are funny
+5. https://youtu.be/nL7lAo95D-o yacine's guide on how to read papers
+6. https://www.youtube.com/watch?v=MfMq4sVJSFc Neel's interview
+7. https://nicholas.carlini.com/writing/2026/how-to-win-a-best-paper-award.html paper writing guide
+8. 
+## deep learning stuff
+1. https://fleuret.org/public/lbdl.pdf little book of deep learning
+2. https://ocw.mit.edu/courses/18-s096-matrix-calculus-for-machine-learning-and-beyond-january-iap-2023/mit18_s096iap23_lec08.pdf matrix calculus stuff
+3. https://sebastianraschka.com/llm-architecture-gallery/ goated page for handy reference of all popular llm arch
+4. https://medium.com/@milana.shxanukova15/100-nlp-questions-answers-attention-part-bf86e07251de NLP interview q
+5. https://www.youtube.com/playlist?list=PLoROMvodv4rOCXd21gf0CF4xr35yINeOy course on transformers and LLMs CME295 stanford
+6. https://www.youtube.com/playlist?list=PLoROMvodv4rOY23Y0BoGoBGgQ1zmU_MT_ language modeling from scratch stanford
+7. https://www.youtube.com/playlist?list=PLoHa6Id98MYIBpRz1NDFeW3JaYG5r1RvX lots of stuff about vlms
+8. 
