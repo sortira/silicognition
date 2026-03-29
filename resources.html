@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>library of alexandria (silicognition edition)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="avatar.png" />
+    <!-- Nerd Font: User must have a Nerd Font installed locally. Example: FiraCode Nerd Font -->
+    <style>
+        body,
+        .page,
+        .paper-header,
+        .authors,
+        .affiliation,
+        .date {
+            font-family: 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font', 'Hack Nerd Font', 'Nerd Font', 'JetBrains Mono', monospace, sans-serif;
+        }
+        
+        .resource-section {
+            margin: 2em 0 1.5em 0;
+        }
+        
+        .resource-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 1.5em 0 0.8em 0;
+            color: var(--ink);
+        }
+        
+        .resource-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        .resource-list li {
+            margin: 0.6em 0;
+            padding-left: 1.5em;
+            text-indent: -1.5em;
+        }
+        
+        .resource-list li:before {
+            content: "→ ";
+            margin-right: 0.5em;
+            color: var(--muted);
+        }
+        
+        .resource-list a {
+            display: inline;
+            word-break: break-word;
+        }
+        
+        .resource-description {
+            display: block;
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 0.2em;
+            margin-left: 2em;
+        }
+    </style>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [
+                    ["$", "$"],
+                    ["\\(", "\\)"]
+                ],
+                displayMath: [
+                    ["$$", "$$"],
+                    ["\\[", "\\]"]
+                ]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
+</head>
+<script data-goatcounter="https://silicognition.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<body>
+    <div class="page">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+        <header class="paper-header">
+            <img src="avatar.png" alt="Avatar" class="avatar" />
+            <h1>library of alexandria (silicognition version)</h1>
+            <p class="authors">an initiative by <a href="https://x.com/silicognition">me</a></p>
+            <p class="affiliation">all opinions are my own, not representing any institution :)</p>
+            <p class="date">a curated collection of learning materials</p>
+            <p class="date"><a href="index.html">← back to home</a></p>
+            <hr />
+            <nav class="table-of-contents" style="margin-bottom: 2em;">
+                <strong>table of contents</strong>
+                <ul>
+                    <li><a href="#note">note to users</a></li>
+                    <li><a href="#deep-learning-foundations">deep learning foundations</a></li>
+                    <li><a href="#mechanistic-interpretability">mechanistic interpretability</a></li>
+                    <li><a href="#ai-systems-engineering">ai systems engineering</a></li>
+                    <li><a href="#courses-and-lectures">courses & lectures</a></li>
+                    <li><a href="#research-papers">recent papers & developments</a></li>
+                    <li><a href="#research-methodology">research methodology & writing</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="paper-body">
+
+            <section id="note">
+                <h2>note to users</h2>
+                <p>
+                    this is not a usual roadmap/guide/collection. these are links and things i've got from one and half years of scrolling searching and after overcoming gatekeeping instincts ive collated them from my DMs to myself. feel free to contact me wrt adding stuff
+                    or new sections you want. do not try to complete everything here.
+                </p>
+            </section>
+
+            <section id="deep-learning-foundations">
+                <h2>deep learning foundations</h2>
+                <p>
+                    core resources for understanding modern deep learning theory, transformer architectures, and fundamental concepts in neural networks.
+                </p>
+
+                <div class="resource-section">
+                    <h3>books & comprehensive guides</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://fleuret.org/public/lbdl.pdf">https://fleuret.org/public/lbdl.pdf</a>
+                            <span class="resource-description">little book of deep learning</span>
+                        </li>
+                        <li>
+                            <a href="https://sebastianraschka.com/llm-architecture-gallery/">https://sebastianraschka.com/llm-architecture-gallery/</a>
+                            <span class="resource-description">goated page for handy reference of all popular llm arch</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>transformer architecture & attention</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://transformer-circuits.pub/">https://transformer-circuits.pub/</a>
+                            <span class="resource-description">whole thread is goated, read if you're into mechint</span>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rOY23Y0BoGoBGgQ1zmU_MT_">https://www.youtube.com/playlist?list=PLoROMvodv4rOY23Y0BoGoBGgQ1zmU_MT_</a>
+                            <span class="resource-description">language modeling from scratch stanford</span>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rOCXd21gf0CF4xr35yINeOy">https://www.youtube.com/playlist?list=PLoROMvodv4rOCXd21gf0CF4xr35yINeOy</a>
+                            <span class="resource-description">course on transformers and LLMs CME295 stanford</span>
+                        </li>
+                        <li>
+                            <a href="https://medium.com/@milana.shxanukova15/100-nlp-questions-answers-attention-part-bf86e07251de">https://medium.com/@milana.shxanukova15/100-nlp-questions-answers-attention-part-bf86e07251de</a>
+                            <span class="resource-description">NLP interview q</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>mathematics for deep learning</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://ocw.mit.edu/courses/18-s096-matrix-calculus-for-machine-learning-and-beyond-january-iap-2023/mit18_s096iap23_lec08.pdf">https://ocw.mit.edu/courses/18-s096-matrix-calculus-for-machine-learning-and-beyond-january-iap-2023/mit18_s096iap23_lec08.pdf</a>
+                            <span class="resource-description">matrix calculus stuff</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>vision & multimodal models</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://www.youtube.com/playlist?list=PLoHa6Id98MYIBpRz1NDFeW3JaYG5r1RvX">https://www.youtube.com/playlist?list=PLoHa6Id98MYIBpRz1NDFeW3JaYG5r1RvX</a>
+                            <span class="resource-description">lots of stuff about vlms</span>
+                        </li>
+                        <li>
+                            <a href="https://arxiv.org/pdf/2602.20330v1">https://arxiv.org/pdf/2602.20330v1</a>
+                            <span class="resource-description">VLM circuit tracing</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="mechanistic-interpretability">
+                <h2>mechanistic interpretability</h2>
+                <p>
+                    resources dedicated to understanding how neural networks actually compute, including feature circuits, mechanistic explanations, and interpretability techniques.
+                </p>
+
+                <div class="resource-section">
+                    <h3>comprehensive guides</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://dynalist.io/d/n2ZWtnoYHrU1s4vnFSAQ519J">https://dynalist.io/d/n2ZWtnoYHrU1s4vnFSAQ519J</a>
+                            <span class="resource-description">comprehensive guide to mechanistic interpretability by Neel Nanda</span>
+                        </li>
+                        <li>
+                            <a href="https://docs.google.com/spreadsheets/d/1oOdrQ80jDK-aGn-EVdDt3dg65GhmzrvBWzJ6MUZB8n4/edit?gid=0#gid=0">https://docs.google.com/spreadsheets/d/1oOdrQ80jDK-aGn-EVdDt3dg65GhmzrvBWzJ6MUZB8n4/edit?gid=0#gid=0</a>
+                            <span class="resource-description">Neel Nanda's 200 Problems on Mechanistic Interpretability</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>lecture series</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://youtu.be/78Xa8VkH7-g?si=WWAa0sGi19CSYb1O">https://youtu.be/78Xa8VkH7-g?si=WWAa0sGi19CSYb1O</a>
+                            <span class="resource-description">part 1</span>
+                        </li>
+                        <li>
+                            <a href="https://youtu.be/Cx3JlXDwMaU?si=fn-D6Ldx3uJTg0i8">https://youtu.be/Cx3JlXDwMaU?si=fn-D6Ldx3uJTg0i8</a>
+                            <span class="resource-description">part 2</span>
+                        </li>
+                        <li>
+                            <a href="https://youtu.be/q-yo6TPRPVk?si=7_20H1Y_jFMA0gGL">https://youtu.be/q-yo6TPRPVk?si=7_20H1Y_jFMA0gGL</a>
+                            <span class="resource-description">part 3</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>exercises & practice</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://transformer-circuits.pub/2021/exercises/index.html">https://transformer-circuits.pub/2021/exercises/index.html</a>
+                            <span class="resource-description">goated series of exercises for mechint</span>
+                        </li>
+                        <li>
+                            <a href="https://arena-chapter1-transformer-interp.streamlit.app/">https://arena-chapter1-transformer-interp.streamlit.app/</a>
+                            <span class="resource-description">ARENA</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>specialized topics</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://arxiv.org/pdf/2406.11717">https://arxiv.org/pdf/2406.11717</a>
+                            <span class="resource-description">refusal is mediated by a single direction (arditi et al.)</span>
+                        </li>
+                        <li>
+                            <a href="https://www.neuronpedia.org/">https://www.neuronpedia.org/</a>
+                            <span class="resource-description">neuronpedia (insane stuff tbh)</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="ai-systems-engineering">
+                <h2>ai systems engineering</h2>
+                <p>
+                    practical engineering approaches to scaling, training, and deploying large language models and ai systems.
+                </p>
+
+                <div class="resource-section">
+                    <h3>training & scaling</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://blog.yellowday.day/posts/gpt_oss_from_scratch/">https://blog.yellowday.day/posts/gpt_oss_from_scratch/</a>
+                            <span class="resource-description">gpt from scratch</span>
+                        </li>
+                        <li>
+                            <a href="https://arxiv.org/abs/2603.07685">https://arxiv.org/abs/2603.07685</a>
+                            <span class="resource-description">MoE scalable training</span>
+                        </li>
+                        <li>
+                            <a href="https://djdumpling.github.io/2026/01/31/frontier_training.html">https://djdumpling.github.io/2026/01/31/frontier_training.html</a>
+                            <span class="resource-description">frontier training methodologies</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>gpu & hardware</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://www.kannav.dev/blog/blog_cinco">https://www.kannav.dev/blog/blog_cinco</a>
+                            <span class="resource-description">primer on gpu internals</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>industry oriented stuff</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://workatafrontierlab.com/">https://workatafrontierlab.com/</a>
+                            <span class="resource-description">pretty self explanatory</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="courses-and-lectures">
+                <h2>courses & lectures</h2>
+                <p>
+                    structured learning paths and comprehensive courses on ai, reinforcement learning, and generative models.
+                </p>
+
+                <div class="resource-section">
+                    <h3>reinforcement learning</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ">https://www.youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ</a>
+                            <span class="resource-description">silver's rl course op</span>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rN4wG6Nk6sNpTEbuOSosZdX">https://www.youtube.com/playlist?list=PLoROMvodv4rN4wG6Nk6sNpTEbuOSosZdX</a>
+                            <span class="resource-description">stanford's rl course</span>
+                        </li>
+                        <li>
+                            <a href="https://huggingface.co/learn/deep-rl-course/en/unit0/introduction">https://huggingface.co/learn/deep-rl-course/en/unit0/introduction</a>
+                            <span class="resource-description">HF course on deep RL</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>generative models & diffusion</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://diffusion.csail.mit.edu/2026/index.html">https://diffusion.csail.mit.edu/2026/index.html</a>
+                            <span class="resource-description">diffusion course from mit</span>
+                        </li>
+                        <li>
+                            <a href="http://kuleshov-group.github.io/dgm-website/">http://kuleshov-group.github.io/dgm-website/</a>
+                            <span class="resource-description">course covering deep generative architectures</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>foundational references</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="http://www.incompleteideas.net/">http://www.incompleteideas.net/</a>
+                            <span class="resource-description">Richard Sutton's incomplete ideas</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="research-papers">
+                <h2>recent papers & developments</h2>
+                <p>
+                    cutting-edge research papers and novel approaches that shape the future of ai.
+                </p>
+
+                <div class="resource-section">
+                    <h3>recent research</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://arxiv.org/pdf/2603.14567">https://arxiv.org/pdf/2603.14567</a>
+                            <span class="resource-description">my senior's paper on an alternative approach to top-k</span>
+                        </li>
+                        <li>
+                            <a href="https://subliminal-learning.com/">https://subliminal-learning.com/</a>
+                            <span class="resource-description">a cool method of teacher-student learning mechanism</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>emerging paradigms</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=rIwgZWzUKm8">https://www.youtube.com/watch?v=rIwgZWzUKm8</a>
+                            <span class="resource-description">world models 7 hour interview</span>
+                        </li>
+                        <li>
+                            <a href="https://openai.com/index/parameter-golf/">https://openai.com/index/parameter-golf/</a>
+                            <span class="resource-description">self-explanatory</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>repos & datasets</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://github.com/duoan/TorchCode">https://github.com/duoan/TorchCode</a>
+                            <span class="resource-description">Leetcode for Pytorch</span>
+                        </li>
+                        <li>
+                            <a href="https://www.kaggle.com/datasets/parthplc/facebook-hateful-meme-dataset">https://www.kaggle.com/datasets/parthplc/facebook-hateful-meme-dataset</a>
+                            <span class="resource-description">multimodal dataset for understanding harmful content detection (memes included, they're funny)</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="research-methodology">
+                <h2>research methodology & writing</h2>
+                <p>
+                    guidance on conducting research, reading papers effectively, and communicating findings clearly.
+                </p>
+
+                <div class="resource-section">
+                    <h3>how to approach research</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=L4NnV_YpS2o">https://www.youtube.com/watch?v=L4NnV_YpS2o</a>
+                            <span class="resource-description">how to get into frontier research, really nice tips</span>
+                        </li>
+                        <li>
+                            <a href="https://youtu.be/nL7lAo95D-o">https://youtu.be/nL7lAo95D-o</a>
+                            <span class="resource-description">yacine's guide on how to read papers</span>
+                        </li>
+                        <li>
+                            <a href="https://how-to-get-so-creative-it-feels-illegal.tx">https://how-to-get-so-creative-it-feels-illegal.tx</a>
+                            <span class="resource-description">how to get so creative it feels illegal</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>paper writing & communication</h3>
+                    <ul class="resource-list">
+                        <li>
+                            <a href="https://nicholas.carlini.com/writing/2026/how-to-win-a-best-paper-award.html">https://nicholas.carlini.com/writing/2026/how-to-win-a-best-paper-award.html</a>
+                            <span class="resource-description">paper writing guide</span>
+                        </li>
+                        <li>
+                            <a href="https://neelguha.github.io/blog/2026/templates/">https://neelguha.github.io/blog/2026/templates/</a>
+                            <span class="resource-description">Neel's template on ML papers</span>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=MfMq4sVJSFc">https://www.youtube.com/watch?v=MfMq4sVJSFc</a>
+                            <span class="resource-description">Neel's interview</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+</body>
+
+</html>
