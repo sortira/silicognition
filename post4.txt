@@ -1,0 +1,4 @@
+The brain internals of XOXO - Performing SAE analysis on a PPO model trained to play tic tac toe
+
+TLDR:
+Trained a small PPO model to play tic tac toe, and then trained SAE on the model's nn to discover certain latents firing for specific contexts. 

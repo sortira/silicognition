@@ -1,165 +1,187 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Silicognition</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/png" href="avatar.png" />
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [
-                    ["$", "$"],
-                    ["\\(", "\\)"]
-                ],
-                displayMath: [
-                    ["$$", "$$"],
-                    ["\\[", "\\]"]
-                ]
-            }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-        (function() {
-            var t = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', t);
-        })();
-    </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Silicognition</title>
+
+<link href="styles.css" rel="stylesheet"/>
+<link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+
+<meta name="description" content="A personal research notebook by Aritro Shome on AI, mechanistic interpretability, novel architectures, maths and computers.">
+<link rel="canonical" href="https://silicognition.is-a.dev/">
+<link rel="preload" href="assets/fonts/instrument-serif-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script src="theme.js">
+</script>
+<script src="site.js" defer>
+</script>
 </head>
-<script data-goatcounter="https://silicognition.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
-<body>
-    <div class="page">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
-        <header class="paper-header">
-            <img src="avatar.png" alt="Avatar" class="avatar" />
-            <h1>silicognition</h1>
-            <p class="authors">an initiative by <a href="https://x.com/silicognition">me</a></p>
-            <p class="affiliation">all opinions are my own, not representing any institution :)</p>
-            <p class="date">till the end of time.</p>
-            <hr />
-            <p class="date">latest post: <a href="post3.html">seven deadly sins of gemma</a></p>
-            <nav class="table-of-contents" style="margin-bottom: 2em;">
-                <strong>Table of Contents</strong>
-                <ul>
-                    <li><a href="#abstract">Abstract</a></li>
-                    <li><a href="#posts">Posts</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                    <li><a href="#motivation">Motivation</a></li>
-                    <li><a href="#layout">A Weird Thing About Layout</a></li>
-                    <li><a href="#name">The Name Silicognition</a></li>
-                    <li><a href="#what-to-do">What To Do?</a></li>
-                    <li><a href="#contact">How to Contact Me?</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <section class="abstract" id="abstract">
-            <h2><i>abstract.</i></h2>
-            <p>
+<body id="top">
+<div class="page home-page"><a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header"><a class="site-signature" href="index.html" aria-label="Silicognition home"><span class="signature-mark" aria-hidden="true">s.</span><span class="signature-copy">an independent<br>research notebook</span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="#posts">Writing</a><a href="resources.html">Library</a><a class="about-nav" href="#about">About</a><button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" hidden><span class="theme-icon" aria-hidden="true"></span><span class="theme-label">Dark</span></button>
+</nav>
+</header>
+<main id="main-content" tabindex="-1">
+<div class="masthead">
+<h1>silicognition<span>.</span>
+</h1>
+<div class="masthead-caption">
+<p class="eyebrow">Notes on machines &amp; the minds behind them
+</p>
+<p class="eyebrow">By Aritro Shome<br>Est. 2026 · always a work in progress
+</p>
+</div>
+</div>
+<section class="intro" aria-label="Introduction">
+<div class="section-label">01 / A working hypothesis
+</div>
+<div class="intro-text">
+<p class="intro-lead">just a person who loves maths,<br> computers, and <em>asking why.</em>
+</p>
+<p class="intro-sub">A personal notebook on artificial intelligence, mechanistic interpretability, and making sense of what happens inside the model.
+</p>
+</div>
+</section>
+<section class="featured" aria-labelledby="featured-title">
+<div class="featured-side"><span class="section-label">Latest field note</span><span class="feature-number" aria-hidden="true">03<sup> / essay</sup></span>
+</div>
+<div>
+<div class="entry-meta"><time datetime="2026-04-06">06 April 2026</time><span>Mechanistic interpretability</span>
+</div>
+<h2 id="featured-title"><a href="post3.html">seven deadly sins<br>of <em>gemma.</em></a>
+</h2>
+<p class="featured-description">Can a language model be steered toward a sin? Emotion vectors, a small open-source model, and a few very human questions.
+</p>
+<a class="text-link" href="post3.html">Read the field note <span aria-hidden="true">↗</span></a>
+</div>
+</section>
+<section class="archive" id="posts">
+<div class="section-heading">
+<h2>The notebook
+</h2>
+<span class="eyebrow">04 entries / newest first</span>
+</div>
+<ol class="archive-list">
+<li><a class="archive-link" href="post3.html"><span class="entry-number">04</span><span class="archive-title">seven deadly sins of gemma</span><time datetime="2026-04-06">06 Apr 2026</time><span class="entry-arrow" aria-hidden="true">↗</span></a>
+</li>
+<li><a class="archive-link" href="resources.html"><span class="entry-number">03</span><span class="archive-title">resources dump: library of alexandria (silicognition version)</span><time datetime="2026-03-29">29 Mar 2026</time><span class="entry-arrow" aria-hidden="true">↗</span></a>
+</li>
+<li><a class="archive-link" href="post2.html"><span class="entry-number">02</span><span class="archive-title">pen is mightier than the gpu — forgeformer, a 2 attention-layer transformer which adds 2 two-digit numbers</span><time datetime="2026-03-12">12 Mar 2026</time><span class="entry-arrow" aria-hidden="true">↗</span></a>
+</li>
+<li><a class="archive-link" href="post1.html"><span class="entry-number">01</span><span class="archive-title">how a second year guy (me) answered in interview with questions on transformers, MoE, residual connections, etc.</span><time datetime="2026-03-08">08 Mar 2026</time><span class="entry-arrow" aria-hidden="true">↗</span></a>
+</li>
+</ol>
+</section>
+<section class="about" id="about" aria-labelledby="about-title">
+<div class="about-heading"><span class="section-label">02 / Behind the notebook</span>
+<h2 id="about-title">thinking<br><em>out loud.</em>
+</h2>
+<img class="avatar" src="avatar.png" width="48" height="48" alt="Aritro's avatar" loading="lazy">
+<p>an initiative by <a href="https://x.com/silicognition">me</a>.<br>all opinions are my own, not representing any institution :)
+</p>
+</div>
+<div class="about-content">
+<section class="original-abstract" id="abstract">
+<h2><i>abstract.</i>
+</h2>
+<p>
                 silicognition is a (technical) blog about how i perceive computers to perform the marvelous tasks which since time immemorial have been the domain of human cognition. i focus and will be focusing on topics like explainable ai, mechanistic interpretability,
                 novel architectures, and other topics of cs ocassionally.
-            </p>
-        </section>
 
-        <main class="paper-body">
-            <section id="posts">
-                <h2>posts.</h2>
-                <ul>
-                    <li><a href="post3.html">seven deadly sins of gemma</a> — April 6, 2026</li>
-                    <li><a href="resources.html">resources dump: library of alexandria (silicognition version)</a> — March 29, 2026</li>
-                    <li><a href="post2.html">pen is mightier than the gpu - forgeformer, a 2 attention-layer transformer which adds 2 two-digit numbers</a> — March 12, 2026</li>
-                    <li><a href="post1.html">how a second year guy (me) answered in interview with questions on transformers, MoE, residual connections, etc.</a> — March 8, 2026</li>
-
-                </ul>
-            </section>
-
-            <section id="motivation">
-                <h2>motivation.</h2>
-                <p>
+</p>
+</section>
+<section id="motivation">
+<h2>motivation.
+</h2>
+<p>
                     well more than anything, penning (keyboarding?) down my thoughts will definitely solidify my comprehension of whatever i'm studying. also the dopamine from interaction gives me motivation (this point is a lie). a nice documention of what i did, proof
                     of work, and with cute diagrams (sketches which i draw in a notebook) will be a nice thing to show to others. this documents stuff better than a readme file and im too lazy to build documentation sites every time.
-                </p>
-                <p>
-                    oh btw, since i 💖 research and academic literature, the site is designed like a paper(ish).
-                </p>
-            </section>
 
-            <section id="layout">
-                <h2>a weird thing about how stuff is laid out</h2>
-                <p>
+</p>
+<p>
+                    oh btw, since i 💖 research and academic literature, the site is designed like a paper(ish).
+
+</p>
+</section>
+<section id="layout">
+<h2>a weird thing about how stuff is laid out
+</h2>
+<p>
                     technical blogs (which i've read) fall into two major categories: one which reads like a splendid conference presentation by someone with insane experience and a PhD, flawless; and the other which reads like <i>hello friends, today i will show you how to get free api key in just 5 minutes please like and share my blog</i>.
                     i neither want to farm reach (but quality feedback and technical discourse is desired as it contributes to proper literature + helps me get better) nor am i world's top x on the subject i'm writing. hence the entire content will be
                     more of how my brain works while approaching the topic, solving the problem, my insights, and how i do research/think of new stuff around these topics.
-                </p>
-                <p>areas of focus:</p>
-                <ul>
-                    <li>novel architectures and models, especially transformer/attention based</li>
-                    <li>explainable ai: saliency maps and mechanistic interpretability (thanks to <a href="https://www.neelnanda.io/">Neel Nanda</a> for propping up on my feed and giving me this banger)</li>
-                    <li>hackathons/internships/my papers discussed</li>
-                    <li>other computer science stuff</li>
-                    <li>attempts to teach some topics as well</li>
-                </ul>
-            </section>
 
-            <section id="name">
-                <h2>the name silicognition, what the hell?</h2>
-                <p>
-                    <i>silico</i> comes from the word silicon, a primary component of computer chips. and <i>cognition</i> is the very capability of us humans to do things which have been exclusively on our skills-list for time immemorial until now, where
+</p>
+<p>areas of focus:
+</p>
+<ul>
+<li>novel architectures and models, especially transformer/attention based
+</li>
+<li>explainable ai: saliency maps and mechanistic interpretability (thanks to <a href="https://www.neelnanda.io/">Neel Nanda</a> for propping up on my feed and giving me this banger)
+</li>
+<li>hackathons/internships/my papers discussed
+</li>
+<li>other computer science stuff
+</li>
+<li>attempts to teach some topics as well
+</li>
+</ul>
+</section>
+<section id="name">
+<h2>the name silicognition, what the hell?
+</h2>
+<p>
+<i>silico</i> comes from the word silicon, a primary component of computer chips. and <i>cognition</i> is the very capability of us humans to do things which have been exclusively on our skills-list for time immemorial until now, where
                     silicon chips powered computers are slowly replacing the mundane tasks allowing us to be more productive towards other problems. while there is a plethora of ethical debate around this topic, i'm just a person who loves maths and computers
                     and finds it crazy that mere equations of mine if executed fast enough and a large number of times (oversimplified on purpose here) can do stuff which only i dreamt of my computer doing.
-                </p>
 
-                <p>
+</p>
+<p>
                     note: if you google, silicognition leads you to a page called <a href="https://silicognition.com/">Silicognition LLC</a> which sells electronics stuff. it is not my intention to impersonate them in any way nor am i doing any financial
                     transactions/stuff with this name.
-                </p>
 
-            </section>
-
-            <section id="what-to-do">
-                <h2>what to do?</h2>
-                <p>
+</p>
+</section>
+<section id="what-to-do">
+<h2>what to do?
+</h2>
+<p>
                     read. reach out to me for doubts, feedback, suggestions, anything you wish to communicate (try not sending hate, although i'll try not be hated). you may find inspiration for a project, a cool topic discovered, a thing you already knew but you shall see
                     it in a different light, etc.
-                </p>
-                <p>
+
+</p>
+<p>
                     enjoy silicognition.
-                </p>
-            </section>
 
-            <section id="contact">
-                <h2>how to contact me?</h2>
-                <p>
-                    <ol>
-                        <li>Email: <a href="mailto:aritro.shome.official@gmail.com">here</a></li>
-                        <li>Twitter: <a href="https://x.com/silicognition/">silicognition's twitter</a></li>
-                        <li>LinkedIn: <a href="https://www.linkedin.com/in/aritro-shome-40a5b0312/">here</a></li>
-                        <li>Instagram: <a href="https://instagram.com/thearitroshome">here</a></li>
-                    </ol>
-                </p>
-            </section>
-        </main>
-    </div>
-    <script>
-        (function() {
-            var btn = document.getElementById('theme-toggle');
-            var cur = document.documentElement.getAttribute('data-theme') || 'light';
-            btn.textContent = cur === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-            btn.addEventListener('click', function() {
-                var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', next);
-                localStorage.setItem('theme', next);
-                btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-            });
-        })();
-    </script>
+</p>
+</section>
+<section id="contact">
+<h2>how to contact me?
+</h2>
+<ul class="contact-list">
+<li><a href="mailto:aritro.shome.official@gmail.com">Email ↗</a>
+</li>
+<li><a href="https://x.com/silicognition/">Twitter ↗</a>
+</li>
+<li><a href="https://www.linkedin.com/in/aritro-shome-40a5b0312/">LinkedIn ↗</a>
+</li>
+<li><a href="https://instagram.com/thearitroshome">Instagram ↗</a>
+</li>
+</ul>
+</section>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<p><span class="footer-mark" aria-hidden="true">↳</span> independently curious. always learning.
+</p>
+<p><a href="https://x.com/silicognition">silicognition</a> · till the end of time.
+</p>
+<a href="#top">back to top ↑</a>
+</footer>
+</div>
+<script data-goatcounter="https://silicognition.goatcounter.com/count" async src="https://gc.zgo.at/count.js">
+</script>
 </body>
-
 </html>
